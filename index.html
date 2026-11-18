@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TSR Manoj Aarya — Data Analyst & AI/ML Associate</title>
+<meta name="description" content="Portfolio of TSR Manoj Aarya — Data Analyst and AI/ML Associate. Data Analysis, Machine Learning, NLP, Generative AI and Predictive Analytics projects.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%23010101'/%3E%3Ccircle cx='32' cy='32' r='15' fill='none' stroke='%23fff' stroke-width='4'/%3E%3Ccircle cx='44' cy='21' r='5' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#010101; --white:#FFFFFF; --w85:rgba(255,255,255,.85); --w65:rgba(255,255,255,.65); --w45:rgba(255,255,255,.45);
+  --line:rgba(255,255,255,.1); --line-3:rgba(255,255,255,.3); --glass:rgba(255,255,255,.1); --glass-2:rgba(255,255,255,.05);
+  --blue:#0073CE; --blue-2:#3B8BF5; --panel:#0A0A0B;
+  --pad:72px; --maxw:1440px; --radius:20px;
+  --head:"Inter Tight",ui-sans-serif,system-ui,sans-serif;
+  --sans:"Inter Tight","Inter",ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+@media (max-width:1100px){:root{--pad:40px}}
+@media (max-width:640px){:root{--pad:20px}}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);background:var(--bg);color:var(--white);font-size:16px;line-height:1.4;letter-spacing:-.005em;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+canvas{display:block}
+::selection{background:var(--white);color:var(--bg)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)}
+h1,h2,h3,h4{font-family:var(--head);font-weight:500}
+.ico{width:16px;height:16px;flex:none}
+
+/* pills & buttons (from reference) */
+.pill{display:inline-flex;align-items:center;gap:8px;height:30px;padding:0 16px;border:1px solid var(--line-3);border-radius:999px;font-size:14px;color:var(--w85)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:40px;padding:0 24px;border-radius:999px;font-size:16px;font-weight:500;white-space:nowrap;transition:background .3s var(--ease),color .3s,transform .3s var(--ease)}
+.btn-white{background:var(--white);color:var(--bg)}
+.btn-white:hover{background:#DCDCDC}
+.btn-glass{background:var(--glass);color:var(--white);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.btn-glass:hover{background:rgba(255,255,255,.18)}
+.btn .arr{transition:transform .3s var(--ease)}
+.btn:hover .arr{transform:translateX(3px)}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .4s var(--ease),border-color .4s;border-bottom:1px solid transparent}
+.nav.scrolled{background:rgba(1,1,1,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-color:var(--line)}
+.nav .wrap{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:72px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--head);font-weight:500;font-size:17px;letter-spacing:-.02em}
+.logo svg{width:28px;height:28px}
+.nav-links{display:flex;gap:4px}
+.nav-links a{padding:4px 12px;font-size:16px;color:var(--white);border-radius:6px;transition:color .2s}
+.nav-links a:hover{color:var(--w65)}
+.nav-right{display:flex;justify-content:flex-end;gap:8px;align-items:center}
+.icon-btn{width:40px;height:40px;border-radius:999px;background:var(--glass);display:grid;place-items:center;transition:background .2s}
+.icon-btn:hover{background:rgba(255,255,255,.18)}
+.menu-btn{display:none}
+@media (max-width:900px){.nav .wrap{grid-template-columns:1fr auto}.nav-links{display:none}.menu-btn{display:grid}.nav-right .gh{display:none}}
+@media (max-width:420px){.logo-txt{display:none}}
+.mobile-menu{position:fixed;top:72px;left:0;right:0;z-index:49;background:rgba(1,1,1,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);padding:8px var(--pad) 18px;display:none}
+.mobile-menu.open{display:block}
+.mobile-menu a{display:block;padding:14px 0;font-size:20px;font-weight:500;border-bottom:1px solid var(--line)}
+
+/* HERO */
+.hero{position:relative;height:100svh;min-height:680px;overflow:hidden}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(1,1,1,.55) 0%,rgba(1,1,1,0) 55%),linear-gradient(0deg,rgba(1,1,1,.9) 0%,rgba(1,1,1,0) 22%)}
+.hero .wrap{position:relative;z-index:2;height:100%;display:flex;justify-content:space-between;align-items:flex-start;gap:40px;padding-top:150px}
+.hero-copy{max-width:600px}
+.hero h1{font-size:clamp(46px,5.4vw,76px);line-height:1.02;letter-spacing:-.035em;font-weight:600;margin:22px 0 16px}
+.hero h1 .line{display:block;overflow:hidden;padding-bottom:.06em}
+.hero h1 .line>span{display:inline-block}
+.hero .tagline{font-size:clamp(19px,1.6vw,22px);font-weight:500;letter-spacing:-.015em;color:var(--white);margin-bottom:12px}
+.hero .lead{font-size:16px;line-height:1.4;color:var(--w85);max-width:540px}
+.cta-row{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
+.hl-card{width:250px;flex:none;margin-top:84px;padding:18px;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.hl-card .lbl{color:var(--w65);font-size:16px}
+.hl-nums{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
+.hl-nums div{display:flex;flex-direction:column;gap:6px}
+.hl-nums b{font-size:24px;font-weight:500;line-height:20px;letter-spacing:-.01em}
+.hl-nums div>span{font-size:12px;color:var(--w65)}
+.hl-card .meta{font-size:14px;line-height:20px;color:var(--w85);padding-top:12px;border-top:1px solid var(--line)}
+.scroll-cue{position:absolute;left:var(--pad);bottom:36px;z-index:2;display:flex;align-items:center;gap:10px;font-size:14px;color:var(--w65)}
+.scroll-cue i{width:22px;height:34px;border:1px solid var(--line-3);border-radius:12px;position:relative}
+.scroll-cue i::after{content:"";position:absolute;left:50%;top:7px;width:3px;height:7px;border-radius:2px;background:#fff;transform:translateX(-50%);animation:cue 1.8s var(--ease) infinite}
+@keyframes cue{0%{opacity:0;transform:translate(-50%,0)}40%{opacity:1}100%{opacity:0;transform:translate(-50%,10px)}}
+@media (max-width:980px){
+  .hero{height:auto;min-height:100svh}
+  .hero .wrap{flex-direction:column;padding-top:120px;padding-bottom:110px}
+  .hl-card{margin-top:8px;width:100%;max-width:420px}
+  .hero::after{background:linear-gradient(0deg,rgba(1,1,1,.85) 0%,rgba(1,1,1,.2) 60%,rgba(1,1,1,.4) 100%)}
+}
+
+/* FOCUS ROW ("Trusted by") */
+.focus-row{padding:64px 0 24px}
+.focus-row .lbl{color:var(--w85);margin-bottom:28px}
+.focus-list{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--line)}
+.focus-list div{display:flex;align-items:center;gap:12px;padding:22px 0;color:var(--w65);font-size:18px;font-weight:500;letter-spacing:-.01em;transition:color .3s}
+.focus-list div:hover{color:#fff}
+.focus-list svg{width:22px;height:22px;flex:none}
+@media (max-width:980px){.focus-list{grid-template-columns:repeat(2,1fr)}}
+
+/* SECTIONS */
+section{padding:clamp(96px,11vw,160px) 0}
+.sec-top{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;margin-bottom:56px}
+.sec-top .pill{margin-bottom:16px}
+h2{font-size:clamp(30px,2.8vw,40px);line-height:1.1;letter-spacing:-.02em;max-width:620px}
+h2.h32{font-size:clamp(26px,2.3vw,32px);line-height:1.3;max-width:none}
+.sec-top p,.muted{color:var(--w85);max-width:480px;margin-top:8px;line-height:1.4}
+
+/* ABOUT */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,112px);align-items:start}
+.about h3{font-size:20px;line-height:1.4;letter-spacing:-.01em;margin:16px 0 16px;max-width:560px}
+.about .muted{max-width:560px;margin-bottom:24px}
+.stat-list>div{border-top:1px solid var(--line);padding:20px 0 34px}
+.stat-list h4{font-size:20px;line-height:28px;letter-spacing:-.01em}
+.stat-list p{color:var(--w65);margin-top:4px}
+@media (max-width:900px){.about{grid-template-columns:1fr}}
+
+/* PROJECTS */
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:860px){.proj-grid{grid-template-columns:1fr}}
+.card{position:relative;border-radius:var(--radius);background:var(--panel);border:1px solid var(--line);overflow:hidden;cursor:pointer;display:flex;flex-direction:column;outline:none;transition:border-color .4s var(--ease)}
+.card:hover,.card:focus-visible{border-color:rgba(255,255,255,.28)}
+.card-stage{position:relative;aspect-ratio:16/9.6;touch-action:pan-y}
+.t-a,.t-b{background:radial-gradient(90% 70% at 50% 118%,rgba(0,115,206,.55) 0%,rgba(0,115,206,.12) 45%,rgba(0,0,0,0) 70%),#050506}
+.t-b{background:radial-gradient(90% 70% at 70% 120%,rgba(59,139,245,.45) 0%,rgba(15,40,80,.18) 45%,rgba(0,0,0,0) 70%),#050506}
+.card-stage canvas{width:100%;height:100%;cursor:grab}
+.card-stage canvas:active{cursor:grabbing}
+.stage-num{position:absolute;left:18px;top:16px;font-size:14px;color:var(--w65);pointer-events:none}
+.stage-hint{position:absolute;right:16px;top:14px;font-size:13px;color:var(--w85);background:var(--glass);backdrop-filter:blur(8px);padding:5px 12px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none}
+.card:hover .stage-hint{opacity:1}
+.award{position:absolute;left:16px;bottom:16px;background:var(--white);color:var(--bg);font-size:13px;font-weight:500;padding:5px 12px;border-radius:999px;pointer-events:none}
+.card-body{padding:24px 24px 26px;display:flex;flex-direction:column;flex:1}
+.card h3{font-size:20px;line-height:28px;letter-spacing:-.01em}
+.card .cat{color:var(--w65);font-size:14px;margin-bottom:6px}
+.card p{color:var(--w85);margin:8px 0 18px;line-height:1.4}
+.stack-list{border-top:1px solid var(--line);margin-bottom:22px}
+.stack-list div{padding:9px 0;border-bottom:1px solid var(--line);color:var(--w85);font-size:15px}
+.card .btn{align-self:flex-start;margin-top:auto}
+.gh-strip{margin-top:16px;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 24px;border-radius:var(--radius);border:1px solid var(--line);flex-wrap:wrap}
+.gh-strip p{color:var(--w85)}
+
+/* SKILLS ("Technology") */
+.render{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:16/8.4;background:#040507;border:1px solid var(--line)}
+.render canvas{position:absolute;inset:0;width:100%;height:100%;cursor:grab;touch-action:pan-y}
+.render canvas:active{cursor:grabbing}
+.render .hint{position:absolute;right:20px;top:18px;font-size:13px;color:var(--w65)}
+.feat{position:absolute;left:16px;bottom:16px;display:grid;grid-template-columns:repeat(4,190px);gap:16px;pointer-events:none}
+.feat div{padding:16px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid var(--line);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.feat h3{font-size:20px;line-height:28px;letter-spacing:-.01em}
+.feat span{color:var(--w85);font-size:15px}
+.skill-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:48px}
+.skill-cols h4{font-size:14px;color:var(--w65);margin-bottom:10px;font-weight:400}
+.skill-cols li{list-style:none;padding:8px 0;border-top:1px solid var(--line);color:var(--white)}
+@media (max-width:1100px){.feat{grid-template-columns:repeat(2,190px)}}
+@media (max-width:760px){.render{aspect-ratio:auto;display:flex;flex-direction:column}.render canvas{position:relative;inset:auto;height:auto;aspect-ratio:1/.8}.feat{position:static;grid-template-columns:1fr 1fr;padding:0 12px 12px;gap:8px}.feat div{padding:12px}.feat h3{font-size:16px;line-height:22px}.feat span{font-size:13px}.skill-cols{grid-template-columns:1fr 1fr}}
+
+/* EXPERIENCE ("Solutions") */
+.exp{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,112px);align-items:start}
+.exp h2{margin:16px 0 16px}
+.exp .stat-list{margin:28px 0 32px;max-width:560px}
+.exp .stat-list>div{padding:14px 17px 18px}
+.edu{display:grid;gap:16px}
+.edu-card{padding:28px;border-radius:var(--radius);background:var(--panel);border:1px solid var(--line)}
+.edu-card .pill{margin-bottom:20px}
+.edu-card h3{font-size:24px;line-height:1.2;letter-spacing:-.015em}
+.edu-card p{color:var(--w85);margin-top:8px}
+.edu-card .row{display:flex;gap:28px;margin-top:22px;padding-top:18px;border-top:1px solid var(--line);flex-wrap:wrap}
+.edu-card .row b{display:block;font-size:24px;font-weight:500;letter-spacing:-.01em}
+.edu-card .row span{color:var(--w65);font-size:14px}
+@media (max-width:900px){.exp{grid-template-columns:1fr}}
+
+/* CONTACT ("Clear") */
+.contact{position:relative;overflow:hidden;padding:clamp(120px,14vw,200px) 0;background:
+  radial-gradient(70% 90% at 50% 120%,rgba(140,190,255,.75) 0%,rgba(59,139,245,.45) 25%,rgba(0,0,0,0) 60%),
+  radial-gradient(50% 70% at 0% 110%,rgba(0,115,206,.8) 0%,rgba(0,0,0,0) 60%),
+  radial-gradient(50% 70% at 100% 100%,rgba(30,70,140,.8) 0%,rgba(0,0,0,0) 60%),
+  linear-gradient(180deg,#010101 0%,#06101f 35%,#14305e 75%,#1f4f9a 100%)}
+.contact .pill{margin-bottom:16px}
+.contact .muted{margin:12px 0 28px}
+.contact .email{font-size:clamp(22px,2.6vw,36px);font-weight:500;letter-spacing:-.02em;margin-bottom:24px;display:block;word-break:break-all}
+
+/* FOOTER */
+footer{padding:96px 0 40px;border-top:1px solid var(--line)}
+.foot{display:grid;grid-template-columns:1fr repeat(4,150px);gap:32px}
+.foot .brand .logo{display:flex}.foot .brand p{color:var(--w65);margin-top:14px;max-width:320px}
+.foot h5{font-size:14px;font-weight:400;color:var(--w65);margin-bottom:8px}
+.foot a,.foot button{display:block;padding:4px 0;color:#fff;text-align:left;font-size:16px;transition:color .2s}
+.foot a:hover,.foot button:hover{color:var(--w65)}
+.wordmark{font-family:var(--head);font-weight:600;font-size:clamp(56px,13.5vw,200px);letter-spacing:-.06em;line-height:.85;color:rgba(255,255,255,.08);margin:80px 0 32px;white-space:nowrap}
+.legal{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12px;color:rgba(255,255,255,.7)}
+@media (max-width:980px){.foot{grid-template-columns:1fr 1fr}.foot .brand{grid-column:1/-1}}
+
+/* MODAL */
+.modal{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;padding:clamp(0px,2vw,28px)}
+.modal.open{display:flex}
+.modal-scrim{position:absolute;inset:0;background:rgba(1,1,1,.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:0;transition:opacity .4s var(--ease)}
+.modal.show .modal-scrim{opacity:1}
+.modal-panel{position:relative;width:min(1200px,100%);height:min(760px,100%);background:#070708;border:1px solid var(--line);border-radius:clamp(0px,2vw,24px);display:grid;grid-template-columns:1.4fr 1fr;overflow:hidden;opacity:0;transform:translateY(24px);transition:opacity .45s var(--ease),transform .55s var(--ease)}
+.modal.show .modal-panel{opacity:1;transform:none}
+.modal-stage{position:relative;touch-action:none}
+.modal-stage canvas{width:100%;height:100%;cursor:grab}
+.modal-stage canvas:active{cursor:grabbing}
+.stage-tools{position:absolute;left:16px;bottom:16px;display:flex;gap:8px}
+.tool{height:36px;min-width:36px;padding:0 14px;border-radius:999px;background:var(--glass);backdrop-filter:blur(8px);display:grid;place-items:center;font-size:14px}
+.tool:hover{background:rgba(255,255,255,.2)}
+.stage-note{position:absolute;left:18px;top:16px;font-size:14px;color:var(--w65)}
+.modal-info{padding:clamp(24px,3.4vw,44px);overflow-y:auto;display:flex;flex-direction:column;border-left:1px solid var(--line)}
+.modal-info h3{font-size:clamp(28px,2.6vw,40px);letter-spacing:-.02em;line-height:1.1;margin:16px 0 12px}
+.modal-info .summary{color:var(--w85);margin-bottom:8px;line-height:1.45}
+.modal-info h4{font-size:14px;font-weight:400;color:var(--w65);margin:24px 0 6px}
+.modal-info ul{list-style:none}
+.modal-info li{padding:10px 0;border-top:1px solid var(--line);color:var(--white);line-height:1.4}
+.modal-info .chips{display:flex;flex-wrap:wrap;gap:8px}
+.modal-info .chips span{height:30px;padding:0 14px;border:1px solid var(--line-3);border-radius:999px;font-size:14px;display:inline-flex;align-items:center;color:var(--w85)}
+.modal-info .metaphor{color:var(--w85);line-height:1.45}
+.modal-nav{display:flex;justify-content:space-between;gap:8px;margin-top:auto;padding-top:28px;flex-wrap:wrap}
+.close{position:absolute;right:16px;top:16px;z-index:3;width:40px;height:40px;border-radius:999px;background:var(--glass);backdrop-filter:blur(8px);display:grid;place-items:center;font-size:16px;transition:background .2s}
+.close:hover{background:rgba(255,255,255,.22)}
+@media (max-width:860px){
+  .modal{padding:0}
+  .modal-panel{grid-template-columns:1fr;grid-template-rows:44svh 1fr;height:100%;border-radius:0;border:0}
+  .modal-info{border-left:0;border-top:1px solid var(--line)}
+}
+
+[data-reveal]{opacity:0;transform:translateY(24px)}
+.no-js [data-reveal],.reduced [data-reveal]{opacity:1;transform:none}
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);background:var(--white);color:var(--bg);padding:10px 20px;border-radius:999px;font-size:14px;font-weight:500;opacity:0;transition:.35s var(--ease);z-index:120;pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body class="no-js">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="gh" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5A11.5 11.5 0 00.5 12a11.5 11.5 0 007.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 015.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.4-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0023.5 12 11.5 11.5 0 0012 .5z"/></symbol>
+  <symbol id="li" viewBox="0 0 24 24"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C20.6 8.65 21 11.2 21 14.5V21h-4v-5.8c0-1.4-.03-3.2-1.95-3.2-1.95 0-2.25 1.5-2.25 3.1V21H9z"/></symbol>
+  <symbol id="mark" viewBox="0 0 32 32"><circle cx="16" cy="16" r="10" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="24.5" cy="8.5" r="3.4" fill="currentColor"/></symbol>
+</svg>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="logo"><svg><use href="#mark"/></svg><span class="logo-txt">TSR Manoj Aarya</span></a>
+    <nav class="nav-links"><a href="#about">About</a><a href="#work">Projects</a><a href="#skills">Skills</a><a href="#experience">Experience</a></nav>
+    <div class="nav-right">
+      <a href="https://github.com/TSRManojaarya" target="_blank" rel="noopener" class="icon-btn gh" aria-label="GitHub"><svg class="ico"><use href="#gh"/></svg></a>
+      <a href="#contact" class="btn btn-glass">Get in Touch</a>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 5h12M2 11h12"/></svg></button>
+    </div>
+  </div>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about">About</a><a href="#work">Projects</a><a href="#skills">Skills</a><a href="#experience">Experience</a><a href="#contact">Contact</a><a href="https://github.com/TSRManojaarya" target="_blank" rel="noopener">GitHub ↗</a>
+</div>
+
+<main id="top">
+<section class="hero" style="padding:0">
+  <canvas id="heroCanvas" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="pill h-in">Data Analyst · AI/ML Associate</span>
+      <h1><span class="line"><span>TSR Manoj Aarya</span></span></h1>
+      <p class="tagline h-in">Turning raw data into clear decisions.</p>
+      <p class="lead h-in">Thanks for stopping by. This is where I show, not just tell: six hands-on projects in data analysis, machine learning, NLP and Generative AI, each rebuilt as an interactive 3D model you can spin, zoom and explore.</p>
+      <div class="cta-row h-in">
+        <a href="#work" class="btn btn-white">Explore Projects</a>
+        <a href="#contact" class="btn btn-glass">Get in Touch</a>
+      </div>
+    </div>
+    <aside class="hl-card h-in">
+      <div class="lbl">Highlights</div>
+      <div class="hl-nums">
+        <div><b data-count="6">06</b><span>Projects</span></div>
+        <div><b><span data-count="15">15</span>+</b><span>Clients</span></div>
+        <div><b>₹<span data-count="50">50</span>K</b><span>Award</span></div>
+      </div>
+      <div class="meta">Accident Avoider System • ₹50,000 award • Kangeyam Group of Institutions</div>
+    </aside>
+  </div>
+  <div class="scroll-cue"><i></i>Scroll to explore</div>
+</section>
+
+<div class="focus-row"><div class="wrap">
+  <div class="lbl" data-reveal>Focus areas</div>
+  <div class="focus-list" data-reveal>
+    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Data Analysis</div>
+    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8 7.5l3 8M16 7.5l-3 8M8.5 6h7"/></svg>Machine Learning</div>
+    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg>NLP</div>
+    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.6L12 15l-1.8-4.4L5.5 9l4.7-1.4z"/><path d="M18 15l.9 2.1L21 18l-2.1.9L18 21l-.9-2.1L15 18l2.1-.9z"/></svg>Generative AI</div>
+    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>Predictive Analytics</div>
+  </div>
+</div></div>
+
+<section id="about">
+  <div class="wrap about">
+    <div>
+      <span class="pill" data-reveal>About Me</span>
+      <h3 data-reveal>Data is everywhere. Insight is rare. Good decisions need both. I bridge that gap by cleaning messy data, building models that hold up, and explaining the results in plain language.</h3>
+      <p class="muted" data-reveal>I'm a 2026 Computer Science graduate from VET Institute of Arts and Science, Erode, with a foundation in Python, SQL, machine learning, NLP and Generative AI built through a data science course and practical projects.</p>
+      <a href="https://github.com/TSRManojaarya" target="_blank" rel="noopener" class="btn btn-glass" data-reveal><svg class="ico"><use href="#gh"/></svg>View GitHub</a>
+    </div>
+    <div class="stat-list">
+      <div data-reveal><h4>+6 Projects Built</h4><p>From retail analytics to a RAG document assistant</p></div>
+      <div data-reveal><h4>+15 Client Projects Delivered</h4><p>As a freelance designer and AI content creator</p></div>
+      <div data-reveal><h4>₹50,000 Innovation Award</h4><p>Accident Avoider System, Kangeyam Group of Institutions</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="work" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-top">
+      <div>
+        <span class="pill" data-reveal>Projects</span>
+        <h2 class="h32" data-reveal>Six projects.<br>Each one a model you can explore in 3D.</h2>
+      </div>
+      <p data-reveal>Drag any model to rotate it. Open a project to see it full size, with what I built and the tools I used.</p>
+    </div>
+    <div class="proj-grid" id="projGrid"></div>
+    <div class="gh-strip" data-reveal>
+      <p>Want to see the code? My projects and notebooks are on GitHub.</p>
+      <a href="https://github.com/TSRManojaarya" target="_blank" rel="noopener" class="btn btn-white"><svg class="ico"><use href="#gh"/></svg>github.com/TSRManojaarya</a>
+    </div>
+  </div>
+</section>
+
+<section id="skills" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-top">
+      <div>
+        <span class="pill" data-reveal>Skills</span>
+        <h2 data-reveal>A toolkit between raw data and real decisions</h2>
+        <p data-reveal>From cleaning and exploring data, through classical machine learning, to building with large language models.</p>
+      </div>
+      <a href="https://github.com/TSRManojaarya" target="_blank" rel="noopener" class="btn btn-white" data-reveal>View GitHub</a>
+    </div>
+    <div class="render" data-reveal>
+      <canvas id="satCanvas" aria-label="Interactive 3D infinity symbol"></canvas>
+      <span class="hint">∞ &nbsp;Always learning · Drag to rotate</span>
+      <div class="feat">
+        <div><h3>Data</h3><span>Python · SQL · Pandas</span></div>
+        <div><h3>Machine Learning</h3><span>Scikit-learn · NLP</span></div>
+        <div><h3>Generative AI</h3><span>LLMs · RAG · Prompts</span></div>
+        <div><h3>Tools</h3><span>Jupyter · Git · Streamlit</span></div>
+      </div>
+    </div>
+    <div class="skill-cols">
+      <div data-reveal><h4>Programming &amp; Data</h4><ul><li>Python</li><li>SQL</li><li>Pandas · NumPy</li><li>Data Cleaning</li><li>Exploratory Data Analysis</li><li>Data Visualization</li></ul></div>
+      <div data-reveal><h4>Machine Learning &amp; NLP</h4><ul><li>Scikit-learn</li><li>Regression · Classification</li><li>Random Forest · Decision Trees</li><li>Logistic Regression · Naive Bayes</li><li>K-Means · PCA</li><li>TF-IDF</li></ul></div>
+      <div data-reveal><h4>Generative AI</h4><ul><li>Prompt Engineering</li><li>LLM Applications</li><li>RAG Fundamentals</li><li>AI Output Review</li></ul></div>
+      <div data-reveal><h4>Tools</h4><ul><li>Jupyter Notebook</li><li>VS Code</li><li>Git · GitHub</li><li>Streamlit</li><li>Google AI Studio</li><li>NVIDIA API</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience" style="padding-top:0">
+  <div class="wrap exp">
+    <div>
+      <span class="pill" data-reveal>Experience</span>
+      <h2 data-reveal>Freelance Designer &amp; AI Content Creator</h2>
+      <p class="muted" data-reveal>Self-employed. I use AI tools and prompt engineering to deliver visual content, reports and institutional publications, translating client requirements into clear deliverables and refining them based on feedback.</p>
+      <div class="stat-list">
+        <div data-reveal><h4>15+ Client Projects</h4><p>Delivered end to end</p></div>
+        <div data-reveal><h4>AI-Assisted Delivery</h4><p>Visual content, reports and publications</p></div>
+      </div>
+      <a href="#contact" class="btn btn-white" data-reveal>Work With Me</a>
+    </div>
+    <div class="edu">
+      <div class="edu-card" data-reveal>
+        <span class="pill">Education</span>
+        <h3>B.Sc. Computer Science</h3>
+        <p>VET Institute of Arts and Science, Erode</p>
+        <div class="row"><div><b>2023 – 2026</b><span>Duration</span></div><div><b>75%</b><span>Score</span></div></div>
+      </div>
+      <div class="edu-card" data-reveal>
+        <span class="pill">Award</span>
+        <h3>Accident Avoider System</h3>
+        <p>Predictive accident-prevention project, recognised by Kangeyam Group of Institutions.</p>
+        <div class="row"><div><b>₹50,000</b><span>Cash award</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <span class="pill" data-reveal>Contact</span>
+    <h2 data-reveal>Let's work together</h2>
+    <p class="muted" data-reveal>I'm looking for an entry-level Data Analyst or AI/ML Associate role. If my work interests you, I'd love to hear from you.</p>
+    <div data-reveal>
+      <span class="email">tsrmanojaayra@gmail.com</span>
+      <div class="cta-row" style="margin-top:0">
+        <button class="btn btn-white" id="emailBtn" type="button">Copy Email</button>
+        <a class="btn btn-glass" href="https://linkedin.com/in/manojaarya" target="_blank" rel="noopener"><svg class="ico"><use href="#li"/></svg>LinkedIn</a>
+        <a class="btn btn-glass" href="https://github.com/TSRManojaarya" target="_blank" rel="noopener"><svg class="ico"><use href="#gh"/></svg>GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="brand"><a href="#top" class="logo"><svg><use href="#mark"/></svg>TSR Manoj Aarya</a><p>Data Analyst and AI/ML Associate based in Bengaluru, India.</p></div>
+      <div><h5>Shortcuts</h5><a href="#top">Home</a><a href="#about">About</a><a href="#experience">Experience</a><a href="#contact">Contact</a></div>
+      <div id="footProjects"><h5>Projects</h5></div>
+      <div><h5>Focus</h5><a href="#skills">Data Analysis</a><a href="#skills">Machine Learning</a><a href="#skills">NLP</a><a href="#skills">Generative AI</a><a href="#skills">Predictive Analytics</a></div>
+      <div><h5>Connect</h5><a href="https://github.com/TSRManojaarya" target="_blank" rel="noopener">GitHub</a><a href="https://linkedin.com/in/manojaarya" target="_blank" rel="noopener">LinkedIn</a><a href="#contact">Email</a></div>
+    </div>
+    <div class="wordmark" aria-hidden="true">Manoj Aarya</div>
+    <div class="legal"><span>© 2026 TSR Manoj Aarya. All rights reserved</span><span>Bengaluru, India</span></div>
+  </div>
+</footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="modal-scrim" data-close></div>
+  <div class="modal-panel">
+    <button class="close" data-close aria-label="Close">✕</button>
+    <div class="modal-stage" id="mStage">
+      <canvas id="modalCanvas"></canvas>
+      <div class="stage-note"><span id="mIndex">01 / 06</span></div>
+      <div class="stage-tools">
+        <button class="tool" id="zIn" aria-label="Zoom in">+</button>
+        <button class="tool" id="zOut" aria-label="Zoom out">−</button>
+        <button class="tool" id="zReset">Reset view</button>
+      </div>
+    </div>
+    <div class="modal-info">
+      <span class="pill" id="mCat" style="align-self:flex-start"></span>
+      <h3 id="mTitle"></h3>
+      <p class="summary" id="mSummary"></p>
+      <h4>What I did</h4>
+      <ul id="mPoints"></ul>
+      <h4>Stack</h4>
+      <div class="chips" id="mChips"></div>
+      <h4>About this model</h4>
+      <div class="metaphor" id="mMeta"></div>
+      <div class="modal-nav">
+        <button class="btn btn-glass" id="mPrev">← Previous</button>
+        <button class="btn btn-white" id="mNext">Next →</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast">Email copied</div>
+
+<script>
+window.PROJECTS = [
+  {id:'retail', tint:'a', cat:'Data Analysis', title:'Retail Sales Analytics',
+   short:'Revenue trends and product performance, found by cleaning and analysing retail sales data.',
+   summary:'An end-to-end analysis of retail sales data to understand where revenue comes from and which products perform.',
+   points:['Cleaned and analysed retail sales data to uncover revenue trends and product performance.','Presented findings through charts and written business observations.'],
+   stack:['Python','SQL','Pandas','Data Visualization'],
+   meta:'A grid of sales bars that rise and fall like products across time, with a trend line running above them.'},
+  {id:'churn', tint:'b', cat:'Machine Learning', title:'Customer Churn Prediction',
+   short:'A classification model that flags customers who are likely to leave.',
+   summary:'A supervised learning project that identifies customers at risk of leaving, so a business can act before they do.',
+   points:['Prepared customer data for modelling.','Built a classification model to identify customers likely to leave.','Evaluated the model using standard classification metrics.'],
+   stack:['Python','Pandas','Scikit-learn'],
+   meta:'A cluster of customers. Most stay close to the core; the blue ones drift away, which is the signal the model learns to catch.'},
+  {id:'spam', tint:'a', cat:'NLP', title:'Spam Message Classifier',
+   short:'TF-IDF features and Naive Bayes to separate spam from genuine messages.',
+   summary:'A text classification workflow that reads a message and decides whether it is spam or genuine.',
+   points:['Turned raw messages into TF-IDF features.','Trained a Naive Bayes model to separate spam from genuine messages.'],
+   stack:['Python','NLP','TF-IDF','Naive Bayes'],
+   meta:'Messages pass through a filter. Genuine ones stay white and continue; spam turns blue and drops out.'},
+  {id:'rag', tint:'b', cat:'Generative AI', title:'RAG Document Assistant',
+   short:'Ask questions about documents and get answers grounded in the source text.',
+   summary:'A document question-answering assistant that finds the relevant passage first, then writes an answer based on it.',
+   points:['Built retrieval over documents to find the text relevant to a question.','Generated answers grounded in the retrieved sources.'],
+   stack:['Python','Generative AI','Retrieval','RAG'],
+   meta:'A stack of documents. For each question, the relevant page is pulled up into the model, which answers from it.'},
+  {id:'chat', tint:'a', cat:'Generative AI', title:'LLM-Powered Chatbot',
+   short:'A chatbot on an LLM API, with prompt instructions that steer response quality.',
+   summary:'A conversational assistant built on a large language model API, with carefully designed prompt instructions.',
+   points:['Developed a chatbot using an LLM API via NVIDIA.','Designed prompt instructions to guide the quality and tone of responses.'],
+   stack:['Python','NVIDIA API','Prompt Engineering'],
+   meta:'A language model at the centre, with the conversation orbiting around it, mid-reply.'},
+  {id:'car', tint:'b', cat:'Predictive Analytics', title:'Accident Avoider System', award:true,
+   short:'A predictive accident-prevention project, awarded ₹50,000.',
+   summary:'A predictive analytics project aimed at preventing road accidents, recognised by Kangeyam Group of Institutions with a ₹50,000 award.',
+   points:['Developed a predictive accident-prevention system.','Awarded INR 50,000 by Kangeyam Group of Institutions.'],
+   stack:['Predictive Analytics','Python'],
+   meta:'A car senses an obstacle ahead with pulsing sensor waves and comes to a stop before it.'}
+];
+document.body.classList.remove('no-js');
+(function(){
+  const grid=document.getElementById('projGrid'), fp=document.getElementById('footProjects');
+  window.PROJECTS.forEach((p,i)=>{
+    const el=document.createElement('article');
+    el.className='card'; el.tabIndex=0; el.dataset.reveal=''; el.dataset.i=i;
+    el.setAttribute('aria-label',p.title+' — open project');
+    el.innerHTML=`
+      <div class="card-stage t-${p.tint}"><canvas></canvas>
+        <span class="stage-num">${String(i+1).padStart(2,'0')}</span>
+        <span class="stage-hint">Drag to rotate</span>
+        ${p.award?'<span class="award">₹50,000 award</span>':''}
+      </div>
+      <div class="card-body">
+        <div class="cat">${p.cat}</div>
+        <h3>${p.title}</h3><p>${p.short}</p>
+        <div class="stack-list">${p.stack.map(s=>`<div>${s}</div>`).join('')}</div>
+        <span class="btn btn-glass">View Project</span>
+      </div>`;
+    grid.appendChild(el);
+    const b=document.createElement('button'); b.textContent=p.title; b.onclick=()=>window.openModal&&window.openModal(i); fp.appendChild(b);
+  });
+})();
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+
+const P = window.PROJECTS;
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const DPR = Math.min(window.devicePixelRatio || 1, 1.75);
+
+let renderer;
+try{ renderer = new THREE.WebGLRenderer({antialias:true, alpha:true, powerPreference:'high-performance'}); }catch(e){ renderer=null; }
+if(renderer){
+renderer.setPixelRatio(1);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
+renderer.setClearColor(0x000000, 0);
+const env = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), 0.04).texture;
+
+const phys = (color, o={}) => new THREE.MeshPhysicalMaterial({color, roughness:.32, metalness:0, clearcoat:.7, clearcoatRoughness:.25, ...o});
+const M = {
+  carbon: phys(0x1A1B1F,{roughness:.42,clearcoat:.8}),
+  silver: phys(0xC9D0DA,{metalness:.65,roughness:.28}),
+  white:  phys(0xF2F4F7,{roughness:.38}),
+  blue:   phys(0x2F7BEA,{roughness:.28,clearcoat:1}),
+  road:   phys(0x1E2024,{roughness:.75,clearcoat:.1}),
+};
+const rb = (w,h,d,r=.06,s=3) => new RoundedBoxGeometry(w,h,d,s,r);
+const canvasTex = (w,h,draw) => {const c=document.createElement('canvas');c.width=w;c.height=h;draw(c.getContext('2d'),w,h);const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;return t;};
+
+function makeScene({cam=[0,3,8], target=[0,1,0], mode='spin', build, bg=null}){
+  const scene = new THREE.Scene(); scene.environment = env; if(bg!==null) scene.background = new THREE.Color(bg);
+  const key = new THREE.DirectionalLight(0xffffff, 1.5); key.position.set(4,7,5); scene.add(key);
+  const rim = new THREE.DirectionalLight(0x6fa8ff, 1.2); rim.position.set(-5,2,-6); scene.add(rim);
+  scene.add(new THREE.AmbientLight(0xffffff,.2));
+  const root = new THREE.Group(); scene.add(root);
+  const update = build(root, scene) || (()=>{});
+  return {scene, root, update, mode, cam:new THREE.Vector3(...cam), target:new THREE.Vector3(...target),
+    st:{ry:0, ty:0, rx:0, tx:0, zoom:1, tz:1, hx:0, hy:0, thx:0, thy:0}, frame:-1};
+}
+let seed = 7; const rnd = () => (seed = (seed*16807) % 2147483647, (seed-1)/2147483646);
+
+/* ---- satellite / data-probe (used in hero + skills) ---- */
+const panelTex = canvasTex(256,160,(g,w,h)=>{g.fillStyle='#0b1220';g.fillRect(0,0,w,h);g.strokeStyle='rgba(170,195,230,.55)';g.lineWidth=2;
+  for(let x=0;x<=w;x+=w/8){g.beginPath();g.moveTo(x,0);g.lineTo(x,h);g.stroke();} for(let y=0;y<=h;y+=h/5){g.beginPath();g.moveTo(0,y);g.lineTo(w,y);g.stroke();}
+  g.strokeStyle='rgba(220,230,245,.9)';g.lineWidth=5;g.strokeRect(0,0,w,h);});
+const weaveTex = canvasTex(128,128,(g,w,h)=>{g.fillStyle='#16171a';g.fillRect(0,0,w,h);for(let y=0;y<h;y+=8)for(let x=0;x<w;x+=8){g.fillStyle=((x+y)/8)%2?'#1d1e22':'#121316';g.fillRect(x,y,8,8);}});
+weaveTex.wrapS=weaveTex.wrapT=THREE.RepeatWrapping; weaveTex.repeat.set(4,6);
+function makeProbe(){
+  const g=new THREE.Group();
+  const carbon=phys(0xffffff,{map:weaveTex,roughness:.38,clearcoat:1,clearcoatRoughness:.15});
+  const body=new THREE.Mesh(new THREE.CylinderGeometry(.8,.8,1.9,6),carbon); body.rotation.y=Math.PI/6; g.add(body);
+  const cap=new THREE.Mesh(new THREE.CylinderGeometry(.66,.8,.16,6),carbon); cap.rotation.y=Math.PI/6; cap.position.y=1.03; g.add(cap);
+  const logo=new THREE.Mesh(new THREE.TorusGeometry(.26,.028,12,64),phys(0x2a2b30,{metalness:.6,roughness:.25})); logo.position.set(0,-.25,.70); g.add(logo);
+  const dot=new THREE.Mesh(new THREE.SphereGeometry(.05,16,12),logo.material); dot.position.set(.2,-.05,.70); g.add(dot);
+  const pm=new THREE.MeshPhysicalMaterial({color:0xffffff,map:panelTex,metalness:.55,roughness:.18,clearcoat:1});
+  [-1,1].forEach(s=>{
+    const arm=new THREE.Mesh(new THREE.BoxGeometry(.5,.05,.05),M.silver); arm.position.set(s*.98,.62,0); g.add(arm);
+    const wing=new THREE.Group(); wing.position.set(s*1.95,.62,0); wing.rotation.z=s*-.08; g.add(wing);
+    [-.5,.5].forEach(z=>{const p=new THREE.Mesh(new THREE.BoxGeometry(1.5,.035,.92),pm);p.position.z=z;wing.add(p);});
+  });
+  return g;
+}
+
+const BUILD = {
+ retail: root => {
+  const base = new THREE.Mesh(rb(4.3,.2,4.3,.09), M.carbon); base.position.y=-.1; root.add(base);
+  const bars=[];
+  for(let i=0;i<5;i++)for(let j=0;j<5;j++){
+    const h0 = .45 + (i+j)*.17 + Math.sin(i*1.3+j*.7)*.22;
+    const top = (i===4&&j>=3)||(i===3&&j===4);
+    const m = new THREE.Mesh(rb(.56,1,.56,.05), top?M.blue:(h0>1.2?M.white:M.silver));
+    m.position.set((i-2)*.8, 0, (j-2)*.8); m.userData={h0,i,j}; root.add(m); bars.push(m);
+  }
+  const pts=[]; for(let k=0;k<6;k++) pts.push(new THREE.Vector3(-2.1+k*.84, 2.2+k*.1+Math.sin(k*1.7)*.18, 0));
+  root.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),80,.035,10), M.white));
+  pts.forEach(p=>{const s=new THREE.Mesh(new THREE.SphereGeometry(.09,20,16),M.blue);s.position.copy(p);root.add(s);});
+  return t => bars.forEach(b=>{const {h0,i,j}=b.userData;const h=h0*(.82+.18*Math.sin(t*1.3+i*.6+j*.35));b.scale.y=h;b.position.y=h/2;});
+ },
+ churn: root => {
+  const core = new THREE.Group(); root.add(core);
+  const geo = new THREE.SphereGeometry(1,28,20);
+  for(let k=0;k<52;k++){
+    const v=new THREE.Vector3(rnd()*2-1,rnd()*2-1,rnd()*2-1).normalize().multiplyScalar(Math.cbrt(rnd())*1.05);
+    const m=new THREE.Mesh(geo, k%3===0?M.silver:M.white); m.scale.setScalar(.12+rnd()*.1); m.position.copy(v); core.add(m);
+  }
+  const ring1=new THREE.Mesh(new THREE.TorusGeometry(1.65,.012,8,160),M.white); ring1.rotation.x=Math.PI/2.3; root.add(ring1);
+  const ring2=new THREE.Mesh(new THREE.TorusGeometry(1.95,.009,8,160),M.blue); ring2.rotation.set(Math.PI/1.8,.4,0); root.add(ring2);
+  const out=[]; for(let k=0;k<7;k++){
+    const d=new THREE.Vector3(Math.cos(k*.9), Math.sin(k*1.7)*.6, Math.sin(k*.9)).normalize();
+    const m=new THREE.Mesh(geo,M.blue); m.scale.setScalar(.17); m.userData={d,ph:k*.9}; root.add(m); out.push(m);
+  }
+  return t => { core.rotation.y=t*.15; core.position.y=Math.sin(t*1.2)*.05;
+    out.forEach(m=>{const {d,ph}=m.userData;const r=1.25+1.15*(.5+.5*Math.sin(t*.7+ph));m.position.copy(d).multiplyScalar(r);});
+    ring2.rotation.z=t*.2; };
+ },
+ spam: root => {
+  const frame=new THREE.Group(); root.add(frame);
+  const H=2.6, D=2.0, T=.12;
+  [[0,H/2,0,T,T,D],[0,-H/2,0,T,T,D],[0,0,D/2,T,H+T,T],[0,0,-D/2,T,H+T,T]].forEach(([x,y,z,w,h,d])=>{const m=new THREE.Mesh(rb(w,h,d,.05),M.silver);m.position.set(x,y,z);frame.add(m);});
+  const pane=new THREE.Mesh(new THREE.PlaneGeometry(D,H),new THREE.MeshBasicMaterial({color:0x3B8BF5,transparent:true,opacity:.14,side:THREE.DoubleSide,depthWrite:false}));
+  pane.rotation.y=Math.PI/2; frame.add(pane);
+  for(let k=-2;k<=2;k++){const l=new THREE.Mesh(new THREE.BoxGeometry(.02,H*.92,.02),M.silver);l.position.z=k*.35;frame.add(l);}
+  const vGeo=new THREE.BoxGeometry(.36,.035,.012);
+  const envs=[]; const N=9;
+  for(let k=0;k<N;k++){
+    const g=new THREE.Group();
+    const body=new THREE.Mesh(rb(.62,.4,.06,.04),M.white); g.add(body);
+    const v1=new THREE.Mesh(vGeo,M.carbon); v1.position.set(-.13,.08,.035); v1.rotation.z=-.5; g.add(v1);
+    const v2=new THREE.Mesh(vGeo,M.carbon); v2.position.set(.13,.08,.035); v2.rotation.z=.5; g.add(v2);
+    g.userData={k,spam:[1,4,6,8].includes(k),body,v:[v1,v2],lane:(k%3-1)*.55,y0:.15+((k*7)%5-2)*.18}; root.add(g); envs.push(g);
+  }
+  return t => envs.forEach(g=>{
+    const {k,spam,body,v,lane,y0}=g.userData; const p=(t*.12+k/N)%1; const x=-3.2+6.4*p;
+    let y=y0; const s=Math.min(1,p*8,(1-p)*8); const isSpam=x>0&&spam;
+    if(x>0){ const u=x/3.2; if(spam){ y=y0-Math.pow(u,1.4)*1.5; g.rotation.z=-u*.6; } else { y=y0+u*.35; g.rotation.z=u*.15; } } else g.rotation.z=0;
+    body.material=isSpam?M.blue:M.white; v.forEach(m=>m.material=isSpam?M.white:M.carbon);
+    g.position.set(x,y,lane); g.scale.setScalar(Math.max(.001,s));
+  });
+ },
+ rag: root => {
+  const sheetGeo=rb(1.5,.045,2.0,.02,2), lineGeo=new THREE.BoxGeometry(1,.02,.07);
+  const sheetM=phys(0xDDE2EA,{roughness:.5});
+  for(let i=0;i<7;i++){const s=new THREE.Mesh(sheetGeo,sheetM);s.position.y=i*.085+.03;s.rotation.y=(rnd()-.5)*.18;root.add(s);}
+  const lifted=new THREE.Group(); lifted.add(new THREE.Mesh(sheetGeo,M.white));
+  [1.05,.9,1.1,.7,.95,.55].forEach((w,i)=>{const l=new THREE.Mesh(lineGeo,i===2?M.blue:M.carbon);l.scale.x=w;l.position.set(-.55+w/2,.03,-.7+i*.26);lifted.add(l);});
+  root.add(lifted);
+  const topY=7*.085+.06;
+  const orb=new THREE.Mesh(new THREE.IcosahedronGeometry(.42,1),phys(0x2F7BEA,{flatShading:true,roughness:.2})); orb.position.y=3.0; root.add(orb);
+  const halo=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.IcosahedronGeometry(.62,1)),new THREE.LineBasicMaterial({color:0xffffff,transparent:true,opacity:.55})); halo.position.y=3.0; root.add(halo);
+  const beam=new THREE.Mesh(new THREE.CylinderGeometry(.35,.95,2.3,40,1,true),new THREE.MeshBasicMaterial({color:0x3B8BF5,transparent:true,opacity:.1,side:THREE.DoubleSide,depthWrite:false}));
+  beam.position.y=1.75; root.add(beam);
+  return t => { const ph=(t*.28)%1; const up=Math.sin(Math.min(1,ph/.85)*Math.PI);
+    lifted.position.y=topY+up*1.55; lifted.rotation.x=-up*.35; lifted.rotation.y=up*.3;
+    orb.rotation.y=t*.6; orb.rotation.x=t*.3; halo.rotation.y=-t*.4; halo.rotation.z=t*.2;
+    orb.scale.setScalar(1+up*.12); beam.material.opacity=.06+up*.16; };
+ },
+ chat: root => {
+  const core=new THREE.Mesh(new THREE.SphereGeometry(.72,48,32),M.blue); root.add(core);
+  const cage=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.IcosahedronGeometry(1.02,1)),new THREE.LineBasicMaterial({color:0xffffff,transparent:true,opacity:.4})); root.add(cage);
+  const orbit=new THREE.Group(); root.add(orbit);
+  const bubbles=[]; const defs=[{y:.75,a:0,mat:M.white,dots:true},{y:-.15,a:2.1,mat:M.carbon},{y:-.85,a:4.2,mat:M.white}];
+  defs.forEach((d,i)=>{
+    const g=new THREE.Group();
+    g.add(new THREE.Mesh(rb(1.15,.56,.16,.13,4),d.mat));
+    const tail=new THREE.Mesh(rb(.18,.18,.12,.03),d.mat); tail.position.set(i%2?.42:-.42,-.27,0); tail.rotation.z=Math.PI/4; g.add(tail);
+    const dots=[]; const lineMat = d.mat===M.carbon?M.blue:M.carbon;
+    if(d.dots){for(let k=0;k<3;k++){const s=new THREE.Mesh(new THREE.SphereGeometry(.065,16,12),M.carbon);s.position.set((k-1)*.22,0,.1);g.add(s);dots.push(s);}}
+    else{[.7,.45].forEach((w,k)=>{const l=new THREE.Mesh(rb(w,.07,.03,.03,2),lineMat);l.position.set(-.38+w/2,.09-k*.17,.09);g.add(l);});}
+    g.userData={...d,dots}; orbit.add(g); bubbles.push(g);
+  });
+  return (t, rootRotY) => { core.position.y=Math.sin(t*1.4)*.05; cage.rotation.y=t*.25; cage.rotation.x=t*.12;
+    bubbles.forEach((g,i)=>{const {y,a,dots}=g.userData;const ang=a+t*.35; g.position.set(Math.cos(ang)*1.95,y+Math.sin(t*1.2+i)*.07,Math.sin(ang)*1.95);
+      g.rotation.y=-(rootRotY||0); dots.forEach((s,k)=>s.position.y=Math.max(0,Math.sin(t*6-k*.8))*.09);});};
+ },
+ car: root => {
+  const road=new THREE.Mesh(rb(2.6,.12,6.4,.05),M.road); road.position.y=-.06; root.add(road);
+  const lineM=phys(0xF2F2F2,{roughness:.6});
+  for(let k=0;k<6;k++){const d=new THREE.Mesh(new THREE.BoxGeometry(.08,.012,.5),lineM);d.position.set(0,.006,-2.8+k*1.1);root.add(d);}
+  [-1.15,1.15].forEach(x=>{const s=new THREE.Mesh(new THREE.BoxGeometry(.05,.012,6.2),lineM);s.position.set(x,.006,0);root.add(s);});
+  const car=new THREE.Group(); root.add(car);
+  const body=new THREE.Mesh(rb(.95,.34,1.65,.12),M.white); body.position.y=.34; car.add(body);
+  const cab=new THREE.Mesh(rb(.78,.3,.85,.12),M.carbon); cab.position.set(0,.62,.06); car.add(cab);
+  const wg=new THREE.CylinderGeometry(.17,.17,.13,24);
+  [[-.48,.5],[.48,.5],[-.48,-.52],[.48,-.52]].forEach(([x,z])=>{const w=new THREE.Mesh(wg,M.carbon);w.rotation.z=Math.PI/2;w.position.set(x,.17,z);car.add(w);});
+  const hl=new THREE.MeshStandardMaterial({color:0xffffff,emissive:0xDDEBFF,emissiveIntensity:1.4});
+  [-.3,.3].forEach(x=>{const h=new THREE.Mesh(new THREE.SphereGeometry(.06,12,10),hl);h.position.set(x,.38,-.83);car.add(h);});
+  const bl=new THREE.MeshStandardMaterial({color:0x330a0a,emissive:0xFF3030,emissiveIntensity:0});
+  [-.32,.32].forEach(x=>{const b=new THREE.Mesh(new THREE.BoxGeometry(.18,.06,.03),bl);b.position.set(x,.4,.83);car.add(b);});
+  const waves=[]; for(let k=0;k<3;k++){
+    const r=new THREE.Mesh(new THREE.RingGeometry(.55,.61,48,1,Math.PI/2-.55,1.1),new THREE.MeshBasicMaterial({color:0x5AA0FF,transparent:true,side:THREE.DoubleSide,depthWrite:false}));
+    r.rotation.x=-Math.PI/2; r.position.set(0,.2,-.7); car.add(r); waves.push(r); }
+  const cone=new THREE.Group(); cone.position.set(0,0,-2.35); root.add(cone);
+  const cb=new THREE.Mesh(rb(.5,.06,.5,.02),M.carbon); cb.position.y=.03; cone.add(cb);
+  const c1=new THREE.Mesh(new THREE.ConeGeometry(.2,.62,28),phys(0xFF7A1A)); c1.position.y=.37; cone.add(c1);
+  const c2=new THREE.Mesh(new THREE.CylinderGeometry(.115,.15,.1,28),M.white); c2.position.y=.36; cone.add(c2);
+  const ease=x=>1-Math.pow(1-x,3), sm=x=>x*x*(3-2*x);
+  return t => { const ph=(t*.16)%1; let z;
+    if(ph<.62) z=2.15-1.95*ease(ph/.62); else if(ph<.8) z=.2; else z=.2+1.95*sm((ph-.8)/.2);
+    car.position.z=z; bl.emissiveIntensity = (ph>.45&&ph<.82)?2:0;
+    const strength = ph<.8 ? .35+.65*Math.min(1,ph/.55) : .3;
+    waves.forEach((w,k)=>{const f=(t*.9+k/3)%1; const s=1+f*2.4; w.scale.set(s,s,1); w.material.opacity=(1-f)*.9*strength;});
+    body.position.y=.34+Math.sin(t*12)*.004; };
+ }
+};
+const CAMS = {
+  retail:{cam:[0,4.2,8.4],target:[0,1.2,0]},
+  churn:{cam:[0,1.4,7.0],target:[0,0,0]},
+  spam:{cam:[4.4,1.9,6.2],target:[0,-.1,0],mode:'sway'},
+  rag:{cam:[0,2.6,6.9],target:[0,1.45,0]},
+  chat:{cam:[0,1.0,6.6],target:[0,-.05,0]},
+  car:{cam:[3.4,4.0,4.3],target:[0,.2,-.2],mode:'sway'}
+};
+const scenes = P.map(p => makeScene({...CAMS[p.id], build:BUILD[p.id]}));
+
+/* ---- Hero: Earth horizon from the stratosphere ---- */
+const hero = makeScene({cam:[0,.35,10], target:[0,.35,0], bg:0x010101, build:(root, scene)=>{
+  scene.environment=null;
+  scene.children.filter(o=>o.isLight).forEach(l=>scene.remove(l));
+  const sunDir=new THREE.Vector3(-.35,.55,-1).normalize();
+  const sunL=new THREE.DirectionalLight(0xffffff,2.6); sunL.position.copy(sunDir).multiplyScalar(30); scene.add(sunL);
+  const fill=new THREE.DirectionalLight(0x9cc4ff,.9); fill.position.set(2,4,8); scene.add(fill);
+  scene.add(new THREE.AmbientLight(0x2a4d80,.35));
+  /* planet texture: procedural fbm continents + clouds */
+  const W=1024,H=512; const hash=(x,y)=>{const s=Math.sin(x*127.1+y*311.7)*43758.5453;return s-Math.floor(s);};
+  const noise=(x,y)=>{const xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi,u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf);
+    const a=hash(xi,yi),b=hash(xi+1,yi),c=hash(xi,yi+1),d=hash(xi+1,yi+1);return a+(b-a)*u+(c-a)*v+(a-b-c+d)*u*v;};
+  const fbm=(x,y)=>{let s=0,a=.5;for(let o=0;o<5;o++){s+=a*noise(x,y);x*=2.03;y*=2.03;a*=.5;}return s;};
+  const tex=canvasTex(W,H,(g)=>{const im=g.createImageData(W,H);const d=im.data;
+    for(let y=0;y<H;y++)for(let x=0;x<W;x++){const nx=x/W*9,ny=y/H*4.5;
+      const n=fbm(nx,ny), cl=fbm(nx*1.6+40,ny*2.4+11); let r,gg,b;
+      if(n>.53){const k=Math.min(1,(n-.53)*4);r=60+70*k;gg=80+70*k;b=110+60*k;} else {const k=n/.53;r=8+16*k;gg=26+40*k;b=62+60*k;}
+      if(cl>.55){const c=Math.min(1,(cl-.55)*3.2)*.85;r+=(235-r)*c;gg+=(242-gg)*c;b+=(255-b)*c;}
+      const i=(y*W+x)*4;d[i]=r;d[i+1]=gg;d[i+2]=b;d[i+3]=255;}
+    g.putImageData(im,0,0);});
+  const R=14;
+  const planet=new THREE.Mesh(new THREE.SphereGeometry(R,128,96),new THREE.MeshStandardMaterial({map:tex,roughness:.85,metalness:0}));
+  const pg=new THREE.Group(); pg.position.set(-1.5,-R-1.25,0); pg.rotation.z=.16; root.add(pg); pg.add(planet);
+  const glowMat=(c,p,inten,side)=>new THREE.ShaderMaterial({transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,side,
+    uniforms:{c:{value:new THREE.Color(c)},p:{value:p},k:{value:inten}},
+    vertexShader:'varying vec3 vN;varying vec3 vV;void main(){vec4 mv=modelViewMatrix*vec4(position,1.);vN=normalize(normalMatrix*normal);vV=normalize(-mv.xyz);gl_Position=projectionMatrix*mv;}',
+    fragmentShader:'uniform vec3 c;uniform float p;uniform float k;varying vec3 vN;varying vec3 vV;void main(){float f=1.-abs(dot(vN,vV));float i=pow(f,p)*k;gl_FragColor=vec4(c*i,i);}'});
+  const haze=new THREE.Mesh(new THREE.SphereGeometry(R*1.004,128,96),glowMat(0xBFD9FF,3.2,1.25,THREE.FrontSide)); pg.add(haze);
+  const atm=new THREE.Mesh(new THREE.SphereGeometry(R*1.06,128,96),new THREE.ShaderMaterial({transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,side:THREE.BackSide,
+    uniforms:{c:{value:new THREE.Color(0x3d8bff)}},
+    vertexShader:'varying vec3 vN;varying vec3 vV;void main(){vec4 mv=modelViewMatrix*vec4(position,1.);vN=normalize(normalMatrix*normal);vV=normalize(-mv.xyz);gl_Position=projectionMatrix*mv;}',
+    fragmentShader:'uniform vec3 c;varying vec3 vN;varying vec3 vV;void main(){float f=dot(vN,vV);float i=pow(clamp(f+.12,0.,1.),5.)*2.2;gl_FragColor=vec4(c*i,i);}'})); pg.add(atm);
+  /* stars */
+  const sp=[]; for(let i=0;i<1400;i++){const v=new THREE.Vector3(rnd()*2-1,rnd()*.9+.1,-(rnd()*.8+.2)).normalize().multiplyScalar(80);sp.push(v.x,v.y,v.z);}
+  const sg=new THREE.BufferGeometry(); sg.setAttribute('position',new THREE.Float32BufferAttribute(sp,3));
+  root.add(new THREE.Points(sg,new THREE.PointsMaterial({color:0xffffff,size:.16,transparent:true,opacity:.75,sizeAttenuation:true})));
+  /* sun + flare */
+  const glow=canvasTex(256,256,(g,w,h)=>{const gr=g.createRadialGradient(128,128,0,128,128,128);gr.addColorStop(0,'rgba(255,255,255,1)');gr.addColorStop(.08,'rgba(255,255,255,.95)');gr.addColorStop(.25,'rgba(170,205,255,.35)');gr.addColorStop(1,'rgba(60,120,255,0)');g.fillStyle=gr;g.fillRect(0,0,w,h);});
+  const sun=new THREE.Sprite(new THREE.SpriteMaterial({map:glow,blending:THREE.AdditiveBlending,depthWrite:false,transparent:true})); sun.scale.set(9,9,1); sun.position.set(6,.3,-18); root.add(sun);
+  const streak=new THREE.Sprite(new THREE.SpriteMaterial({map:glow,blending:THREE.AdditiveBlending,depthWrite:false,transparent:true,opacity:.55})); streak.scale.set(34,.5,1); streak.position.copy(sun.position); root.add(streak);
+  /* probe floating on the right */
+  const probe=makeProbe(); probe.scale.setScalar(.36); probe.position.set(3.0,-.05,2.5); probe.rotation.set(.12,-.5,.05); root.add(probe);
+  return t=>{ planet.rotation.y=t*.006; probe.rotation.y=-.5+t*.12; probe.position.y=-.05+Math.sin(t*.8)*.06; streak.material.opacity=.45+Math.sin(t*.7)*.1; };
+}});
+hero.mode='none';
+
+/* ---- Skills render: 3D infinity loop with flowing data ---- */
+const sat = makeScene({cam:[0,.4,8.6], target:[0,.15,0], bg:0x040507, build:(root, scene)=>{
+  const A=2.7;
+  const inf = u => { const t=u*Math.PI*2, s=Math.sin(t), c=Math.cos(t), d=1+s*s;
+    return new THREE.Vector3(A*c/d, A*s*c/d*1.05, .55*s); };
+  class Inf extends THREE.Curve{ getPoint(u,tg=new THREE.Vector3()){ return tg.copy(inf(u)); } }
+  const curve=new Inf();
+  const g=new THREE.Group(); g.position.y=.35; g.rotation.x=.32; root.add(g);
+  /* chrome tube + thin bright core line */
+  g.add(new THREE.Mesh(new THREE.TubeGeometry(curve,520,.13,28,true),
+    phys(0x2a2e36,{metalness:.95,roughness:.16,clearcoat:1,clearcoatRoughness:.08})));
+  const coreLine=new THREE.Mesh(new THREE.TubeGeometry(curve,520,.03,8,true),
+    new THREE.MeshBasicMaterial({color:0x3B8BF5,transparent:true,opacity:.55,blending:THREE.AdditiveBlending,depthWrite:false}));
+  g.add(coreLine);
+  /* flowing particles along the loop */
+  const N=520, pos=new Float32Array(N*3), col=new Float32Array(N*3), base=[];
+  for(let i=0;i<N;i++){ base.push({u:i/N, off:new THREE.Vector3((rnd()-.5)*.22,(rnd()-.5)*.22,(rnd()-.5)*.22)}); }
+  const pgeo=new THREE.BufferGeometry(); pgeo.setAttribute('position',new THREE.BufferAttribute(pos,3)); pgeo.setAttribute('color',new THREE.BufferAttribute(col,3));
+  const dotTex=canvasTex(64,64,(c,w,h)=>{const gr=c.createRadialGradient(32,32,0,32,32,32);gr.addColorStop(0,'rgba(255,255,255,1)');gr.addColorStop(.35,'rgba(255,255,255,.6)');gr.addColorStop(1,'rgba(255,255,255,0)');c.fillStyle=gr;c.fillRect(0,0,w,h);});
+  g.add(new THREE.Points(pgeo,new THREE.PointsMaterial({size:.16,map:dotTex,vertexColors:true,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,depthTest:false})));
+  /* comet heads */
+  const glow=canvasTex(128,128,(c,w,h)=>{const gr=c.createRadialGradient(64,64,0,64,64,64);gr.addColorStop(0,'rgba(255,255,255,1)');gr.addColorStop(.15,'rgba(200,225,255,.9)');gr.addColorStop(.45,'rgba(59,139,245,.35)');gr.addColorStop(1,'rgba(59,139,245,0)');c.fillStyle=gr;c.fillRect(0,0,w,h);});
+  const heads=[0,1,2].map(()=>{const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:glow,blending:THREE.AdditiveBlending,depthWrite:false,depthTest:false,transparent:true}));sp.scale.set(1.1,1.1,1);g.add(sp);return sp;});
+  /* soft floor reflection glow */
+  const floor=new THREE.Mesh(new THREE.PlaneGeometry(10,4),new THREE.MeshBasicMaterial({map:glow,transparent:true,opacity:.22,blending:THREE.AdditiveBlending,depthWrite:false}));
+  floor.rotation.x=-Math.PI/2; floor.position.y=-1.55; root.add(floor);
+  const blue=new THREE.Color(0x3B8BF5), white=new THREE.Color(0xffffff), tmp=new THREE.Color(), v=new THREE.Vector3();
+  return t=>{
+    const hs=[0,1,2].map(k=>((t*.085+k/3)%1+1)%1);
+    hs.forEach((h,k)=>heads[k].position.copy(inf(h)));
+    for(let i=0;i<N;i++){
+      const b=base[i]; const u=(b.u + t*.02)%1;
+      v.copy(inf(u)).add(b.off); v.toArray(pos,i*3);
+      let br=.08;
+      for(const h of hs){ let d=h-u; if(d<0)d+=1; if(d<.18) br=Math.max(br, Math.pow(1-d/.18,2.2)); }
+      tmp.copy(blue).lerp(white, Math.min(1,br*1.1)).multiplyScalar(.25+br*1.4); tmp.toArray(col,i*3);
+    }
+    pgeo.attributes.position.needsUpdate=true; pgeo.attributes.color.needsUpdate=true;
+    coreLine.material.opacity=.35+Math.sin(t*1.6)*.12;
+    g.position.y=.35+Math.sin(t*.8)*.06;
+  };
+}});
+sat.mode='sway';
+
+/* ---------- Views ---------- */
+const views=[];
+function addView(canvas, getScene, opts={}){
+  const v={canvas, ctx:canvas.getContext('2d'), getScene, visible:false, camera:new THREE.PerspectiveCamera(opts.fov||34,1,.1,100), ...opts};
+  new IntersectionObserver(es=>es.forEach(e=>v.visible=e.isIntersecting),{rootMargin:'100px'}).observe(canvas);
+  views.push(v); return v;
+}
+function bindDrag(el, getS, {zoom=false, tilt=false, onTap}={}){
+  let down=false, moved=0, lx=0, ly=0;
+  el.addEventListener('pointerdown',e=>{down=true;moved=0;lx=e.clientX;ly=e.clientY;el.setPointerCapture(e.pointerId);});
+  el.addEventListener('pointermove',e=>{const s=getS().st;
+    if(down){const dx=e.clientX-lx, dy=e.clientY-ly; lx=e.clientX; ly=e.clientY; moved+=Math.abs(dx)+Math.abs(dy);
+      s.ty+=dx*.012; s.tx=Math.max(-.5,Math.min(.6,s.tx+dy*.006));}
+    else if(tilt){const r=el.getBoundingClientRect(); s.thy=((e.clientX-r.left)/r.width-.5)*.5; s.thx=((e.clientY-r.top)/r.height-.5)*.25;}});
+  const up=e=>{ if(down && moved<6 && onTap) onTap(); down=false; };
+  el.addEventListener('pointerup',up); el.addEventListener('pointercancel',()=>down=false);
+  el.addEventListener('pointerleave',()=>{const s=getS().st; s.thx=s.thy=0;});
+  if(zoom) el.addEventListener('wheel',e=>{e.preventDefault();const s=getS().st;s.tz=Math.max(.55,Math.min(1.7,s.tz*(1+e.deltaY*.0012)));},{passive:false});
+}
+
+document.querySelectorAll('.card').forEach(card=>{
+  const i=+card.dataset.i, cv=card.querySelector('canvas');
+  addView(cv, ()=>scenes[i]);
+  bindDrag(cv, ()=>scenes[i], {tilt:true, onTap:()=>openModal(i)});
+  card.addEventListener('click',e=>{ if(e.target.tagName!=='CANVAS') openModal(i); });
+  card.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();openModal(i);} });
+});
+const heroCanvas=document.getElementById('heroCanvas');
+addView(heroCanvas, ()=>hero, {fov:40, fitK:.95, dpr:Math.min(DPR,1.25)});
+const satCanvas=document.getElementById('satCanvas');
+addView(satCanvas, ()=>sat, {fov:30, fitK:1.6});
+bindDrag(satCanvas, ()=>sat);
+let mx=0,my=0; addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5;},{passive:true});
+let current=0; const modalCanvas=document.getElementById('modalCanvas');
+const mView = addView(modalCanvas, ()=>scenes[current], {fov:32, modal:true});
+bindDrag(modalCanvas, ()=>scenes[current], {zoom:true});
+
+/* ---------- Render loop ---------- */
+let W=0,H=0, fid=0; const clock=new THREE.Clock();
+const modalOpen=()=>document.getElementById('modal').classList.contains('open');
+function frame(){
+  requestAnimationFrame(frame);
+  const t = clock.getElapsedTime() * (reduce?.35:1); fid++;
+  const mOpen = modalOpen();
+  const active = views.filter(v => mOpen ? v.modal : (v.visible && !v.modal));
+  if(!active.length) return;
+  let needW=W, needH=H; const sizes=active.map(v=>{const r=v.canvas.getBoundingClientRect();const w=Math.max(2,Math.round(r.width*(v.dpr||DPR))),h=Math.max(2,Math.round(r.height*(v.dpr||DPR)));needW=Math.max(needW,w);needH=Math.max(needH,h);return [w,h];});
+  if(needW>W||needH>H){W=needW;H=needH;renderer.setSize(W,H,false);}
+  renderer.setScissorTest(true);
+  active.forEach((v,k)=>{
+    const [w,h]=sizes[k]; const S=v.getScene(); const st=S.st;
+    if(v.canvas.width!==w||v.canvas.height!==h){v.canvas.width=w;v.canvas.height=h;}
+    if(S.frame!==fid){ S.frame=fid;
+      st.ry+=(st.ty-st.ry)*.08; st.rx+=(st.tx-st.rx)*.08; st.zoom+=(st.tz-st.zoom)*.1; st.hx+=(st.thx-st.hx)*.06; st.hy+=(st.thy-st.hy)*.06;
+      let auto=0; if(S.mode==='spin') auto=t*.22; else if(S.mode==='sway') auto=Math.sin(t*.35)*.4;
+      if(S===hero){ st.hy+= (mx*.06-st.hy)*.04; st.hx+=(my*.03-st.hx)*.04; }
+      S.root.rotation.y = st.ry + auto + st.hy; S.root.rotation.x = st.rx + st.hx;
+      S.update(t, S.root.rotation.y);
+    }
+    const cam=v.camera; cam.aspect=w/h;
+    const fit = Math.max(1, (v.fitK||1.25)/(w/h)); // pull back on tall viewports
+    cam.position.copy(S.cam).sub(S.target).multiplyScalar(st.zoom*fit).add(S.target); cam.lookAt(S.target); cam.updateProjectionMatrix();
+    renderer.setViewport(0,0,w,h); renderer.setScissor(0,0,w,h); renderer.clear();
+    renderer.render(S.scene, cam);
+    v.ctx.clearRect(0,0,w,h); v.ctx.drawImage(renderer.domElement,0,H-h,w,h,0,0,w,h);
+  });
+}
+frame();
+
+/* ---------- Modal ---------- */
+const modal=document.getElementById('modal'), stage=document.getElementById('mStage');
+const $=id=>document.getElementById(id);
+let lastFocus=null;
+function fill(i){
+  current=i; const p=P[i];
+  stage.className='modal-stage t-'+p.tint;
+  $('mIndex').textContent=`${String(i+1).padStart(2,'0')} / ${String(P.length).padStart(2,'0')}`;
+  $('mCat').textContent=p.cat; $('mTitle').textContent=p.title; $('mSummary').textContent=p.summary;
+  $('mPoints').innerHTML=p.points.map(x=>`<li>${x}</li>`).join('');
+  $('mChips').innerHTML=p.stack.map(s=>`<span class="chip">${s}</span>`).join('');
+  $('mMeta').textContent=p.meta;
+  const st=scenes[i].st; st.tz=1;
+}
+function openModal(i){
+  lastFocus=document.activeElement; fill(i);
+  modal.classList.add('open'); document.body.style.overflow='hidden';
+  requestAnimationFrame(()=>modal.classList.add('show'));
+  setTimeout(()=>modal.querySelector('.close').focus({preventScroll:true}),50);
+}
+function closeModal(){
+  modal.classList.remove('show'); document.body.style.overflow='';
+  setTimeout(()=>{modal.classList.remove('open'); lastFocus&&lastFocus.focus({preventScroll:true});},380);
+}
+window.openModal=openModal;
+modal.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',closeModal));
+$('mPrev').onclick=()=>fill((current-1+P.length)%P.length);
+$('mNext').onclick=()=>fill((current+1)%P.length);
+$('zIn').onclick=()=>{const s=scenes[current].st;s.tz=Math.max(.55,s.tz*.85);};
+$('zOut').onclick=()=>{const s=scenes[current].st;s.tz=Math.min(1.7,s.tz*1.18);};
+$('zReset').onclick=()=>{const s=scenes[current].st;s.tz=1;s.ty=Math.round(s.ry/(Math.PI*2))*Math.PI*2;s.tx=0;};
+addEventListener('keydown',e=>{ if(!modal.classList.contains('open'))return;
+  if(e.key==='Escape')closeModal(); if(e.key==='ArrowRight')$('mNext').click(); if(e.key==='ArrowLeft')$('mPrev').click(); });
+} else {
+  document.querySelectorAll('.card-stage').forEach(s=>s.innerHTML='<div style="display:grid;place-items:center;height:100%;color:rgba(255,255,255,.6);font-size:14px">3D preview needs WebGL</div>');
+}
+</script>
+
+<script>
+/* ---------- UI + motion ---------- */
+(function(){
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const nav=document.getElementById('nav');
+  const onScroll=()=>nav.classList.toggle('scrolled',scrollY>20); onScroll(); addEventListener('scroll',onScroll,{passive:true});
+  const mb=document.getElementById('menuBtn'), mm=document.getElementById('mobileMenu');
+  mb.onclick=()=>mm.classList.toggle('open'); mm.querySelectorAll('a').forEach(a=>a.onclick=()=>mm.classList.remove('open'));
+  const toast=document.getElementById('toast');
+  document.getElementById('emailBtn').onclick=async()=>{
+    try{await navigator.clipboard.writeText('tsrmanojaayra@gmail.com');toast.textContent='Email copied to clipboard';}
+    catch(e){toast.textContent='tsrmanojaayra@gmail.com';}
+    toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'),2200);
+  };
+  if(reduce || !window.gsap){ document.body.classList.add('reduced'); return; }
+  gsap.registerPlugin(ScrollTrigger);
+  const tl=gsap.timeline({defaults:{ease:'expo.out'}});
+  tl.from('h1 .line>span',{yPercent:110,duration:1.3,stagger:.12,delay:.1})
+    .from('.h-in',{y:24,opacity:0,duration:1.1,stagger:.08},'-=1.0');
+  document.querySelectorAll('[data-count]').forEach(el=>{const end=+el.dataset.count;const o={v:0};
+    gsap.to(o,{v:end,duration:1.6,delay:.6,ease:'power2.out',onUpdate:()=>el.textContent=Math.round(o.v),onComplete:()=>el.textContent=end});});
+  ScrollTrigger.batch('[data-reveal]',{start:'top 88%',once:true,
+    onEnter:b=>gsap.to(b,{opacity:1,y:0,duration:1.1,ease:'expo.out',stagger:.08})});
+  gsap.to('.hero-copy',{yPercent:-10,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+})();
+</script>
+</body>
+</html>
